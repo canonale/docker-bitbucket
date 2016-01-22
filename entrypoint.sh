@@ -24,4 +24,8 @@ ssh-add $FILE
 
 ssh-keyscan -H bitbucket.org >> ~/.ssh/known_hosts
 
-git clone -b $BRANCH git@bitbucket.org:${REPO} /app
+if [[ ! -d $APP ]]; then
+    mkdir -p $APP
+fi
+
+git clone -b $BRANCH git@bitbucket.org:${REPO} ${APP}

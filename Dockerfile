@@ -1,6 +1,7 @@
 FROM alpine
 
 ENV BRANCH master
+ENV APP /app
 
 ADD entrypoint.sh /entrypoint.sh
 run apk --update add openssh-client git \

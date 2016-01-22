@@ -50,15 +50,24 @@ you might use:
 in one line and whiout the rsa marks (*-----BEGIN|END RSA PRIVATE KEY-----*).
 - **REPO** this is the reposotiry’s name without domain (deploymentbox/my-repo.git)
 - **BRANCH** this var is optional and is the name of the clone branch. By default is *master*.
+- **APP** this is the clone path folder. If you must link with other container with a specific path you can change it
 
 ## Run an example
 
 This example download a repository and copy in a local folder:
 
     >_ mkdir /tmp/django-jquery 
-    >_ IDRSA=$()grep "^--" -v id_rsa | paste -s -d "")
+    >_ IDRSA=$(grep "^--" -v id_rsa | paste -s -d "")
     >_ docker run --rm -v /tmp/django-jquery:/app -e IDRSA=$IDRSA \
     -e REPO=massimilianoravelli/django-jquery canonale/bitbucket 
+
+Deploy one PHP application:
+
+    >_ docker run -v /var/www/html/ -e APP=/var/www/html/ \
+    -e IDRSA=$IDRSA -e REPO=user/my-php-code.git \
+    --name php-repository canonale/bitbucket 
+    >_ # PHP-Apache container use /var/www/html/ to run 
+    >_ docker run --volumes-from php-repository php:5.5-apache
 
 
 
